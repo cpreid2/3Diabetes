@@ -34,39 +34,42 @@ DiabetesData=[{'Max':0,'Mean':0.0,'Min':0,'dt2':'2017-01-01'},{'Max':398,'Mean':
 			if (DiabetesData[i].Mean > 0){
 				Average = Average + DiabetesData[i].Mean;
 				Ave_Count = Ave_Count + 1;
-			}
-				
-				
+
 				if (DiabetesData[i].Mean > 200){
-					var material = new THREE.MeshBasicMaterial({color:'#FF0000'});
+					var material = new THREE.MeshBasicMaterial({color:'#DD4132'});
 				}
 				if (DiabetesData[i].Mean > 80 && DiabetesData[i].Mean < 180){
-					var material = new THREE.MeshBasicMaterial({color:'#00FF00'});
+					var material = new THREE.MeshBasicMaterial({color:'#79C753'});
 				}
 				if (DiabetesData[i].Mean > 180 && DiabetesData[i].Mean < 200){
-					var material = new THREE.MeshBasicMaterial({color:'#FFFF00'});
+					var material = new THREE.MeshBasicMaterial({color:'#FAE03C'});
 				}
 				var geometry = new THREE.BoxGeometry((DiabetesData[i].Max - DiabetesData[i].Min)/210, 0.015, 0.015);
 			
 				var earth = new THREE.Mesh( geometry, material );
 				var angle = i*Math.PI*2/365;
 
-				earth.position.set(Math.cos(angle)*2,Math.sin(angle)*2,0); // offset from center
+				var Minimum = (DiabetesData[i].Min / 210) + 1.5
+				
+				earth.position.set(Math.cos(angle)*Minimum,Math.sin(angle)*Minimum,0); // offset from center
 				earth.rotation.z = (angle);
 			
 				sphereContainer.add( earth );
+				
+			}
 		}
 		scene.add( sphereContainer );
 
+
 		Total_Ave = Average / Ave_Count;
 				if (Total_Ave> 200){
-					var material = new THREE.MeshBasicMaterial({color:'#FF0000'});
+					var material = new THREE.MeshBasicMaterial({color:'#DD4132'});
 				}
 				if (Total_Ave > 80 && Total_Ave < 180){
-					var material = new THREE.MeshBasicMaterial({color:'#00FF00'});
+					var material = new THREE.MeshBasicMaterial({color:'#79C753'});
 				}
 				if (Total_Ave > 180 && Total_Ave < 200){
-					var material = new THREE.MeshBasicMaterial({color:'#FFFF00'});
+					var material = new THREE.MeshBasicMaterial({color:'#FAE03C'});
 				}
 
 		var geometry = new THREE.SphereGeometry( 0.4, 15, 15);
